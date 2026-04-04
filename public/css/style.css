@@ -8,15 +8,29 @@ body {
     overflow-x: hidden;
 }
 
-.blog-title { font-size: 3.5rem; font-weight: 800; }
-
-/* FORM TẠO BÀI */
+/* NÂNG CẤP 1: FORM TẠO BÀI (CÓ HÀO QUANG) */
 .create-post-card {
-    border-radius: 40px;
+    border-radius: 40px; /* Bo tròn mạnh */
     background: #ffffff;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05) !important;
+    padding: 50px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.03) !important; /* Bóng đổ nhẹ mặc định */
+    position: relative;
+    z-index: 100;
 }
 
+/* Hiệu ứng Hào quang gradient mờ */
+.create-post-card::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    background: linear-gradient(45deg, #3178eb, #70a1ff, #ff9f43, #ff6b6b);
+    border-radius: 50px;
+    z-index: -1;
+    opacity: 0.15; /* Làm mờ hào quang */
+    filter: blur(20px); /* Làm nhòe viền */
+}
+
+/* Các Input bo tròn */
 .custom-input {
     background-color: #f8fbff !important;
     border: none !important;
@@ -25,6 +39,7 @@ body {
     padding: 15px !important;
 }
 
+/* Nút Đăng bài bo tròn */
 .btn-post {
     background: linear-gradient(45deg, #3178eb, #70a1ff) !important;
     color: white !important;
@@ -34,10 +49,10 @@ body {
     transition: 0.3s;
 }
 
-/* THANH TÌM KIẾM MỚI */
+/* --- PHẦN TÌM KIẾM MỚI --- */
 .search-bar-container {
     background: #ffffff;
-    border-radius: 50px;
+    border-radius: 50px; /* Bo tròn hoàn toàn */
     padding: 12px 25px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     border: 2px solid transparent;
@@ -56,37 +71,100 @@ body {
     font-size: 1.1rem; font-weight: 600; background: transparent;
 }
 
-/* TIÊU ĐỀ GÓC KỶ NIỆM */
-.post-list-heading { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+/* --- PHẦN TIÊU ĐỀ GÓC KỶ NIỆM --- */
+.section-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 5px;
+}
+
+.post-list-heading { font-size: 1.8rem; font-weight: 800; margin: 0; }
+
 .accent-line {
     width: 50px; height: 6px;
     background: linear-gradient(90deg, #3178eb, #70a1ff);
     border-radius: 10px;
 }
 
-/* CARD BÀI VIẾT */
+/* NÂNG CẤP 2: CARD BÀI VIẾT (CÓ HIỆU ỨNG BAY LÊN) */
 .post-card-item {
-    border-radius: 30px;
-    transition: transform 0.3s ease;
+    background: #ffffff;
+    border-radius: 30px; /* Giữ nguyên bo tròn */
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); /* Bóng đổ rất nhẹ mặc định */
+    
+    /* CHÌA KHÓA: Hiệu ứng chuyển động mượt mà */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    border: 2px solid transparent; /* Sẵn sàng cho đường viền khi hover */
 }
 
-.post-card-item:hover { transform: translateY(-5px); }
+/* Hiệu ứng khi rê chuột vào bài viết */
+.post-card-item:hover {
+    transform: translateY(-10px) scale(1.01); /* Nhấc bài viết lên và phóng to tí tẹo */
+    box-shadow: 0 20px 50px rgba(49, 120, 235, 0.1) !important; /* Bóng đổ màu xanh nhạt */
+    border-color: rgba(49, 120, 235, 0.2); /* Thêm đường viền xanh mờ */
+}
 
-/* ĐẢM BẢO NÚT BẤM KHÔNG BỊ CHE */
-.action-buttons { position: relative; z-index: 2000; }
+/* NÂNG CẤP 3: LÀM ĐẸP NÚT SỬA/XÓA VÀ THÊM HIỆU ỨNG XOAY */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    z-index: 9999; /* Đảm bảo nút không bị ảnh đè */
+}
+
+.action-buttons .btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50% !important; /* Biến nút thành hình tròn */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border: 1px solid #e1e8ed !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Hiệu ứng hover cho nút Sửa */
+.action-buttons .btn-outline-primary:hover {
+    background-color: #f0f7ff !important;
+    transform: rotate(15deg) scale(1.1); /* Xoay nhẹ và phóng to */
+}
+
+/* Hiệu ứng hover cho nút Xóa */
+.action-buttons .btn-outline-danger:hover {
+    background-color: #fff5f5 !important;
+    transform: rotate(-15deg) scale(1.1); /* Xoay nhẹ và phóng to */
+}
+
+.action-buttons i {
+    font-size: 1.2rem;
+}
+
+/* NÂNG CẤP 4: Định dạng lại Thời gian thân thiện hơn (Sửa HTML trong index.ejs) */
+/* Trong fileviews/index.ejs, tìm đến dòng hiển thị ngày tháng:
+<div class="post-meta text-secondary mb-2">
+    <i class="fa-regular fa-calendar-days me-1"></i>
+    <%= post.createdAt.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) %> -
+    <%= post.createdAt.toLocaleDateString('vi-VN') %>
+</div>
+*/
 
 /* TRANG TRÍ (MỜ VIỀN) */
 .pencil-wrapper, .anime-wrapper {
-    position: fixed; bottom: 20px; z-index: 10;
+    position: fixed; bottom: 30px; z-index: 10;
     pointer-events: none; /* Click xuyên qua ảnh */
 }
 
-.pencil-wrapper { left: 20px; width: 300px; }
-.anime-wrapper { right: 20px; width: 350px; }
+.pencil-wrapper { left: 30px; width: 350px; }
+.anime-wrapper { right: 30px; width: 380px; }
 
 .soft-img {
     width: 100%;
-    animation: bounce 3s ease-in-out infinite;
+    animation: bounce 2.5s ease-in-out infinite;
     -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
     mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
 }
@@ -95,3 +173,8 @@ body {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
 }
+
+/* Làm đẹp thanh cuộn */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f0f7ff; }
+::-webkit-scrollbar-thumb { background: #70a1ff; border-radius: 10px; }

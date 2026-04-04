@@ -2,27 +2,45 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Chỉnh sửa kỷ niệm ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa kỷ niệm 📝</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body style="background-color: #f0f7ff;">
-    <div class="container mt-5">
+
+    <header class="text-center py-5">
+        <h1 style="font-weight: 800;">📝 Sửa kỷ niệm</h1>
+        <p class="text-muted">Cập nhật lại khoảnh khắc của bạn ✨</p>
+    </header>
+
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card p-5 shadow-sm" style="border-radius: 40px; border: none;">
-                    <h3 class="fw-bold mb-4">Chỉnh sửa kỷ niệm ✍️</h3>
+                <div class="card create-post-card p-5 border-0 shadow-sm" style="border-radius: 40px; background: #fff;">
                     <form action="/posts/update/<%= post._id %>?_method=PUT" method="POST">
-                        <input type="text" name="title" class="form-control custom-input mb-3 p-3" value="<%= post.title %>" required>
-                        <textarea name="content" class="form-control custom-input mb-4 p-3" rows="7" required><%= post.content %></textarea>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tiêu đề</label>
+                            <input type="text" name="title" class="form-control custom-input" value="<%= post.title %>" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Nội dung</label>
+                            <textarea name="content" class="form-control custom-input" rows="7" required><%= post.content %></textarea>
+                        </div>
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-post flex-grow-1">LƯU THAY ĐỔI</button>
-                            <a href="/" class="btn btn-light border p-3" style="border-radius: 20px; font-weight: 700;">HỦY</a>
+                            <a href="/" class="btn btn-light w-50 py-3" style="border-radius: 20px; font-weight: 800;">HỦY</a>
+                            <button type="submit" class="btn btn-post w-50 py-3">LƯU THAY ĐỔI</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="anime-wrapper" style="position: fixed; bottom: 20px; right: 20px; width: 280px;">
+        <img src="/images/anime-squad.png" style="width: 100%; opacity: 0.9;" alt="Decor">
+    </div>
+
 </body>
 </html>

@@ -10,26 +10,30 @@
 </head>
 <body>
 
-    <header class="blog-header text-center py-4">
+    <header class="blog-header text-center py-5">
         <h1 class="blog-title">🌈 My Happy Blog 🦄</h1>
-        <p class="header-subtitle">Nơi lưu giữ kỷ niệm phiên bản MVC ✨</p>
+        <p class="header-subtitle text-muted">Nơi lưu giữ kỷ niệm phiên bản MVC ✨</p>
     </header>
 
     <div class="container-fluid px-5">
         <div class="row g-5">
             <div class="col-lg-4">
                 <div class="card create-post-card p-5 border-0 shadow-sm">
-                    <h4 class="card-title-lg mb-4">Tạo niềm vui mới ✍️</h4>
+                    <h4 class="fw-bold mb-4">Tạo niềm vui mới ✍️</h4>
                     <form action="/posts/store" method="POST">
-                        <input type="text" name="title" class="form-control custom-input mb-3" placeholder="Tiêu đề..." required>
-                        <textarea name="content" class="form-control custom-input mb-4" rows="6" placeholder="Kể chuyện đi nào..." required></textarea>
+                        <div class="mb-3">
+                            <input type="text" name="title" class="form-control custom-input" placeholder="Tiêu đề kỷ niệm..." required>
+                        </div>
+                        <div class="mb-4">
+                            <textarea name="content" class="form-control custom-input" rows="6" placeholder="Hôm nay bạn thế nào?..." required></textarea>
+                        </div>
                         <button type="submit" class="btn btn-post w-100 py-3">ĐĂNG BÀI NGAY</button>
                     </form>
                 </div>
             </div>
 
             <div class="col-lg-8">
-                <div class="search-bar-container mb-4">
+                <div class="search-bar-container mb-5">
                     <div class="search-box-wrapper">
                         <i class="fa-solid fa-magnifying-glass search-icon"></i>
                         <input type="text" id="searchInput" placeholder="Tìm kiếm kỷ niệm của bạn...">
@@ -42,31 +46,39 @@
                 </div>
                 
                 <div id="post-list">
-                    <% posts.forEach(post => { %>
-                        <div class="card post-card-item mb-4 p-4 border-0 shadow-sm">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <div>
-                                    <h5 class="fw-bold mb-1 text-dark" style="font-size: 1.4rem;"><%= post.title %></h5>
-                                    <small class="text-secondary">
-                                        <i class="fa-regular fa-calendar-days"></i> 
-                                        <%= post.createdAt.toLocaleDateString('vi-VN') %>
-                                    </small>
+                    <% if (posts.length > 0) { %>
+                        <% posts.forEach(post => { %>
+                            <div class="card post-card-item border-0 shadow-sm">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="fw-bold text-dark mb-1" style="font-size: 1.4rem;"><%= post.title %></h5>
+                                        <div class="post-meta text-secondary small">
+                                            <i class="fa-regular fa-clock me-1"></i>
+                                            <%= post.createdAt.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) %> — 
+                                            <i class="fa-regular fa-calendar-days mx-1"></i>
+                                            <%= post.createdAt.toLocaleDateString('vi-VN') %>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="action-buttons">
+                                        <a href="/posts/edit/<%= post._id %>" class="btn btn-outline-primary" title="Sửa bài">
+                                            <i class="fa-solid fa-pen-nib"></i>
+                                        </a>
+                                        <form action="/posts/delete/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-outline-danger" title="Xóa bài" onclick="return confirm('Xóa kỷ niệm này nhé?')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                
-                                <div class="action-buttons d-flex gap-2">
-                                    <a href="/posts/edit/<%= post._id %>" class="btn btn-outline-primary btn-sm border-0 shadow-none">
-                                        <i class="fa-solid fa-pen-to-square" style="font-size: 1.3rem;"></i>
-                                    </a>
-                                    <form action="/posts/delete/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm border-0 shadow-none" onclick="return confirm('Xóa bài này nhé?')">
-                                            <i class="fa-solid fa-trash-can" style="font-size: 1.3rem;"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                                <p class="text-muted mb-0" style="line-height: 1.6;"><%= post.content %></p>
                             </div>
-                            <p class="text-muted mb-0" style="font-size: 1.1rem;"><%= post.content %></p>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="text-center py-5">
+                            <p class="text-muted fs-5">Chưa có kỷ niệm nào ở đây hết... 🦄</p>
                         </div>
-                    <% }) %>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -77,17 +89,24 @@
             <img src="/images/butchi.png" class="soft-img" alt="Bút chì">
         </div>
         <div class="anime-wrapper">
-            <img src="/images/anime-squad.png" class="soft-img" alt="Anime Squad">
+            <img src="/images/anime-squad.png" class="soft-img" alt="Luffy Pikachu">
         </div>
     </div>
 
     <script>
-        // Chức năng tìm kiếm nhanh
+        // Chức năng tìm kiếm mượt mà
         document.getElementById('searchInput').addEventListener('keyup', function() {
             let filter = this.value.toLowerCase();
-            document.querySelectorAll('.post-card-item').forEach(card => {
+            let posts = document.querySelectorAll('.post-card-item');
+            
+            posts.forEach(card => {
                 let text = card.innerText.toLowerCase();
-                card.style.display = text.includes(filter) ? "block" : "none";
+                if(text.includes(filter)) {
+                    card.style.display = "block";
+                    card.style.animation = "fadeIn 0.5s";
+                } else {
+                    card.style.display = "none";
+                }
             });
         });
     </script>
