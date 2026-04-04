@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;800&display=swap');
+
+body {
+    background-color: #f0f7ff;
+    font-family: 'Quicksand', sans-serif;
+    color: #2c3e50;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.blog-title { font-size: 3.5rem; font-weight: 800; }
+
+/* FORM TẠO BÀI */
+.create-post-card {
+    border-radius: 40px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05) !important;
+}
+
+.custom-input {
+    background-color: #f8fbff !important;
+    border: none !important;
+    border-radius: 20px !important;
+    font-weight: 600;
+    padding: 15px !important;
+}
+
+.btn-post {
+    background: linear-gradient(45deg, #3178eb, #70a1ff) !important;
+    color: white !important;
+    border-radius: 20px !important;
+    font-weight: 800 !important;
+    border: none;
+    transition: 0.3s;
+}
+
+/* THANH TÌM KIẾM MỚI */
+.search-bar-container {
+    background: #ffffff;
+    border-radius: 50px;
+    padding: 12px 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 2px solid transparent;
+}
+
+.search-bar-container:focus-within {
+    border-color: #3178eb;
+}
+
+.search-box-wrapper { display: flex; align-items: center; }
+
+.search-icon { color: #3178eb; font-size: 1.2rem; margin-right: 15px; }
+
+#searchInput {
+    border: none; outline: none; width: 100%;
+    font-size: 1.1rem; font-weight: 600; background: transparent;
+}
+
+/* TIÊU ĐỀ GÓC KỶ NIỆM */
+.post-list-heading { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+.accent-line {
+    width: 50px; height: 6px;
+    background: linear-gradient(90deg, #3178eb, #70a1ff);
+    border-radius: 10px;
+}
+
+/* CARD BÀI VIẾT */
+.post-card-item {
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+}
+
+.post-card-item:hover { transform: translateY(-5px); }
+
+/* ĐẢM BẢO NÚT BẤM KHÔNG BỊ CHE */
+.action-buttons { position: relative; z-index: 2000; }
+
+/* TRANG TRÍ (MỜ VIỀN) */
+.pencil-wrapper, .anime-wrapper {
+    position: fixed; bottom: 20px; z-index: 10;
+    pointer-events: none; /* Click xuyên qua ảnh */
+}
+
+.pencil-wrapper { left: 20px; width: 300px; }
+.anime-wrapper { right: 20px; width: 350px; }
+
+.soft-img {
+    width: 100%;
+    animation: bounce 3s ease-in-out infinite;
+    -webkit-mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+    mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
